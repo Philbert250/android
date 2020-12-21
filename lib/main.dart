@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vonline/controllers/splash_controller.dart';
 import 'package:vonline/home.dart';
 import 'package:vonline/views/home_view.dart';
+import 'package:vonline/views/loginView.dart';
+import 'package:vonline/views/splash_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,17 +14,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final SplashController spl = Get.put(SplashController());
+    return GetMaterialApp(
       title: 'Flutter Demo',
-
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // home: MyHomePage(title: 'mazameza app'),
-      home: HomeView(),
+      home: Obx(() => spl.splash == true ? SplashView() : LoginView()),
     );
   }
 }
@@ -74,17 +76,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     height: 15.0,
                   ),
-
                   Container(
                     child: Image(
                       image: AssetImage('Assets/login.png'),
                     ),
                   ),
-
                   const SizedBox(
                     height: 15.0,
                   ),
-
                   Container(
                       width: 320,
                       padding: EdgeInsets.all(10.0),
@@ -111,7 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       )),
-
                   Container(
                       width: 320,
                       padding: EdgeInsets.all(10.0),
@@ -139,22 +137,21 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       )),
-
                   Container(
                     height: 60,
                     width: 310,
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => Home()));
-                        },
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) => Home()));
+                      },
                       child: Text('Sign Up'),
                       shape: StadiumBorder(),
                       color: Colors.purple[300],
                       textColor: Colors.white,
                     ),
                   ),
-                  
                   Container(
                       child: Row(
                     children: <Widget>[
@@ -179,12 +176,9 @@ class _MyHomePageState extends State<MyHomePage> {
         )
         // This trailing comma makes auto-formatting nicer for build methods.
 
-       
         );
   }
 
-
   // widget to be called
 
-  
 }
